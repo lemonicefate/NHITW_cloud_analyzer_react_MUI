@@ -56,7 +56,7 @@ import {
 // 引入標籤顏色工具函數
 import { getTabColor, getTabSelectedColor } from "../utils/tabColorUtils";
 
-// import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Snackbar from "@mui/material/Snackbar";
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 // import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -75,6 +75,7 @@ import MedDaysData from "./tabs/MedDaysData";
 import LabTableView from "./tabs/LabTableView";
 import Instructions from "./tabs/Instructions";
 import AdvancedSettings from "./tabs/AdvancedSettings";
+import HisQuickCopy from "./tabs/HisQuickCopy";
 
 import HomeIcon from "@mui/icons-material/Home";
 import MedicationIcon from "@mui/icons-material/Medication";
@@ -683,6 +684,18 @@ const FloatingIcon = () => {
                   }}
                 />
                 <Tab
+                  label="HIS複製"
+                  icon={<ContentCopyIcon sx={{ fontSize: "1rem" }} />}
+                  iconPosition="start"
+                  sx={{
+                    padding: "6px 10px",
+                    color: groupedMedications.length > 0 ? getTabColor(generalDisplaySettings, "medication") : "#9e9e9e",
+                    "&.Mui-selected": {
+                      color: groupedMedications.length > 0 ? getTabSelectedColor(generalDisplaySettings, "medication") : "#616161",
+                    },
+                  }}
+                />
+                <Tab
                   label="說明"
                   icon={<HelpOutlineIcon sx={{ fontSize: "1rem" }} />}
                   iconPosition="start"
@@ -869,14 +882,19 @@ const FloatingIcon = () => {
             />
           </TabPanel>
 
-          {/* Instructions Tab */}
+          {/* HIS Quick Copy Tab */}
           <TabPanel value={tabValue} index={8}>
+            <HisQuickCopy groupedMedications={groupedMedications} />
+          </TabPanel>
+
+          {/* Instructions Tab */}
+          <TabPanel value={tabValue} index={9}>
             <Instructions generalDisplaySettings={generalDisplaySettings} />
           </TabPanel>
 
           {/* Advanced Settings Tab */}
           {(appSettings.western.enableMedicationCustomCopyFormat || appSettings.lab.enableLabCustomCopyFormat) && (
-            <TabPanel value={tabValue} index={9}>
+            <TabPanel value={tabValue} index={10}>
               <AdvancedSettings
                 appSettings={appSettings}
                 setAppSettings={setAppSettings}
