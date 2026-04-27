@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Box,
   Button,
@@ -16,6 +16,10 @@ const keyOf = (g, m) => `${g}-${m}`;
 const HisQuickCopy = ({ groupedMedications }) => {
   const [selectedKeys, setSelectedKeys] = useState(new Set());
   const [snack, setSnack] = useState({ open: false, msg: "", severity: "success" });
+
+  useEffect(() => {
+    setSelectedKeys(new Set());
+  }, [groupedMedications]);
 
   const totalCount = useMemo(
     () => groupedMedications.reduce((sum, g) => sum + g.medications.length, 0),
